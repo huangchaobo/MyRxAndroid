@@ -12,6 +12,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 
@@ -53,6 +54,46 @@ public class MainActivity extends AppCompatActivity {
         flatMapType();
 
     }
+
+    public void button7(View view) {
+        scanType();
+
+    }
+    /**
+     * scan操作符对原始Observable发射的第一项数据应用一个函数，
+     * 然后将那个函数的结果作为自己的第一项数据发射。
+     * 它将函数的结果同第二项数据一起填充给这个函数来产生它自己的第二项数据。
+     * 它持续进行这个过程来产生剩余的数据序列。
+     * */
+    private void scanType() {
+        //scan 会将输入的第一个元素当作参数做一个函数运算(函数由你实现，规定需要两个参数，此时另一个默认没有)，然后发射结果
+        // 同时，运算结果会被当作函数的与第二个参数与第二个元素再进行函数运算，完成后发射结果
+        // 然后将这个结果与第三个元素作为函数的参数再次运算...直到最后一个元素
+        Observable.just(10,20,30,40).scan(new Func2<Integer, Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer, Integer integer2) {
+                //integer是第一个元素或上一次计算的结果，integer2是下一轮运算中新的序列中元素
+                return integer + integer2;
+            }
+        })
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "scanType-->onNext==" + integer);
+                    }
+                });
+    }
+
     /**
      * flatMap()将一个发射数据的Observable变换为多个Observables，
      * 然后将它们发射的数据合并后放进一个单独的Observable。

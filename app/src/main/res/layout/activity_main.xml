@@ -37,4 +37,9 @@
         android:layout_height="wrap_content"
         android:onClick="button6"
         android:text="flatMap变换，双重变换" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="button7"
+        android:text="scan变换，双重变换" />
 </LinearLayout>
