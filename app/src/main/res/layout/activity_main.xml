@@ -42,4 +42,9 @@
         android:layout_height="wrap_content"
         android:onClick="button7"
         android:text="scan变换，双重变换" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="button8"
+        android:text="filter变换，过滤" />
 </LinearLayout>

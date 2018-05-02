@@ -59,6 +59,40 @@ public class MainActivity extends AppCompatActivity {
         scanType();
 
     }
+
+    public void button8(View view) {
+        filterType();
+
+    }
+
+    /**过滤*/
+    private void filterType() {
+        Observable.just(10,20,30,40).filter(new Func1<Integer, Boolean>() {
+            @Override
+            public Boolean call(Integer integer) {
+                //过滤掉30以上的数据
+                return integer<30;
+            }
+        })
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        Log.d(TAG, "filterType-->onNext==" + integer);
+                    }
+                });
+
+    }
+
     /**
      * scan操作符对原始Observable发射的第一项数据应用一个函数，
      * 然后将那个函数的结果作为自己的第一项数据发射。
@@ -105,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         Observable.just(array1,array2).flatMap(new Func1<Integer[], Observable<?>>() {
             @Override
             public Observable<?> call(Integer[] integers) {
-                return Observable.from(integers);
+                    return Observable.from(integers);
             }
         })
                 .subscribe(new Subscriber<Object>() {
